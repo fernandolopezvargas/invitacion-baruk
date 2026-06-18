@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Bautizo · Baruk Carel</title>
+  <link rel="stylesheet" href="invitacion_baruk.css">
+</head>
+<body>
+<div class="wrap">
+
+  <!-- INVITACIÓN -->
+  <div id="inv">
+    <div class="floral-header"></div>
+
+    <div class="inv-head">
+      <span class="cross">✝</span>
+      <div class="ev-title">Bautizo y Corte de Cabello</div>
+      <div class="baby-name">Baruk Carel</div>
+      <div class="gold-line"></div>
+      <div class="date-txt">Sábado 11 · Julio · 2026</div>
+    </div>
+
+    <div class="poem">
+      "Dios me envió a este mundo para completar la dicha en el hogar feliz donde junto a mis padres reina el amor."
+    </div>
+
+    <p class="invite-text">
+      Acompáñanos a celebrar el Bautizo y Corte de Cabello de nuestro querido hijo <strong>Baruk Carel</strong>.<br>
+      Tenemos el gusto de invitarte este día tan especial que se efectuará el <strong>sábado 11 de julio a horas 16:00 P.M.</strong>
+    </p>
+
+    <div class="card">
+      <div class="card-label">👨‍👩‍👦 Padres</div>
+      <div class="card-val">
+        <strong>Jaime Freddy Cruz Serrano</strong>
+        <span style="color:#b8942a;font-size:14px;margin:0 4px;">✦</span>
+        <strong>M. Virginia Orellana Vargas</strong>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">📅 Fecha y Hora</div>
+      <div class="card-val">
+        <strong>Sábado 11 de Julio de 2026</strong>
+        <span class="sub">⏰ 16:00 P.M.</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">⛪ Templo</div>
+      <div class="card-val">
+        <strong>"San Lorenzo"</strong>
+        <span class="sub">Colcapirhua</span>
+      </div>
+    </div>
+
+    <div class="card-label" style="margin:4px 14px 6px; font-size:10px; letter-spacing:0.28em; text-transform:uppercase; color:#b8942a; font-weight:700; text-align:center; font-family:'Arial',sans-serif;">🎩 Padrinos de Bautizo</div>
+    <div class="pad-grid">
+      <div class="pad-card"><span class="pad-type">Padrino</span><div class="pad-name">Jhonny Villca Marca</div></div>
+      <div class="pad-card"><span class="pad-type">Madrina</span><div class="pad-name">Carmen R. Roja Quentasi</div></div>
+    </div>
+
+    <div class="card-label" style="margin:4px 14px 6px; font-size:10px; letter-spacing:0.28em; text-transform:uppercase; color:#b8942a; font-weight:700; text-align:center; font-family:'Arial',sans-serif;">🎀 Padrinos de Corte</div>
+    <div class="pad-grid">
+      <div class="pad-card"><span class="pad-type">Padrino</span><div class="pad-name">Sergio Orellana Panozo</div></div>
+      <div class="pad-card"><span class="pad-type">Madrina</span><div class="pad-name">Mayely Vargas Amurrio</div></div>
+    </div>
+
+    <div class="reception">
+      <div class="card-label" style="color:#b8942a;margin-bottom:6px;">🏛️ Recepción</div>
+      <div class="card-val">
+        <strong>Salón de Eventos "Majestic"</strong>
+        <span class="sub">Av. Blanco Galindo Km. 7<br>Av. 16 de Julio · Zona Capacachi<br>4 cuadras al Norte</span>
+        <span class="sub" style="margin-top:5px;font-size:12px;">🚕 Tomar taxi/trufi Concordia<br>desde Av. Cochabamba</span>
+      </div>
+    </div>
+
+    <div class="player">
+      <button class="play-btn" id="playBtn" onclick="togglePlay()" aria-label="Reproducir música">
+        <svg id="playIco" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      <div class="mus-info">
+        <div class="mus-title">🎵 Melodía de Celebración</div>
+        <div class="mus-sub">Música de fondo</div>
+        <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
+        <div class="vol-row">
+          <span class="vol-ico">♩</span>
+          <input type="range" class="vol" min="0" max="1" step="0.05" value="0.7" id="volSlider" oninput="setVol(this.value)">
+        </div>
+      </div>
+    </div>
+
+    <button class="back-btn" onclick="window.location.href='portada_baruk.html'">← Volver a la Portada</button>
+
+    <div class="floral-foot">
+      <div class="foot-txt">Con amor · Familia Cruz Orellana · 2026</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let ctx, gainNode, playing = false;
+  let loopPlaying = false;
+  let melodyTimeout = null;
+  let harmonyTimeout = null;
+  let progInterval = null;
+  let progStart = 0;
+  let activeNodes = [];
+
+  // Melodía principal
+  const melody = [
+    [523.25, 0.3], [587.33, 0.3], [659.25, 0.3], [783.99, 0.3],
+    [880.00, 0.5], [783.99, 0.3], [659.25, 0.3], [587.33, 0.3],
+    [523.25, 0.8], [0, 0.3],
+    [659.25, 0.3], [783.99, 0.3], [880.00, 0.3], [987.77, 0.3],
+    [880.00, 0.5], [783.99, 0.3], [659.25, 0.3], [587.33, 0.3],
+    [523.25, 0.8], [0, 0.3],
+    [587.33, 0.3], [659.25, 0.3], [783.99, 0.3], [880.00, 0.3],
+    [987.77, 0.5], [880.00, 0.3], [783.99, 0.3], [659.25, 0.3],
+    [587.33, 0.8], [0, 0.3],
+    [659.25, 0.3], [783.99, 0.3], [880.00, 0.3], [987.77, 0.3],
+    [1174.66, 0.6], [987.77, 0.3], [880.00, 0.3], [783.99, 0.3],
+    [659.25, 1.0]
+  ];
+
+  // Armonía
+  const harmony = [
+    [261.63, 3.5], [329.63, 3.5], [392.00, 3.5], [523.25, 3.5],
+    [261.63, 3.5], [329.63, 3.5], [392.00, 3.5], [523.25, 3.5],
+    [293.66, 3.5], [369.99, 3.5], [440.00, 3.5], [587.33, 3.5]
+  ];
+
+  const MELODY_TOTAL = melody.reduce((s, n) => s + n[1], 0);
+  const HARMONY_TOTAL = harmony.reduce((s, n) => s + n[1], 0);
+
+  function initAudio() {
+    if (ctx) return;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    gainNode = ctx.createGain();
+    gainNode.gain.value = 0.7;
+    gainNode.connect(ctx.destination);
+  }
+
+  function playMelody() {
+    if (!ctx || !loopPlaying) return;
+    const t = ctx.currentTime;
+    let delayAcc = 0;
+    for (let i = 0; i < melody.length; i++) {
+      const freq = melody[i][0];
+      const dur = melody[i][1];
+      const startAt = t + delayAcc;
+      if (freq > 0) {
+        const osc = ctx.createOscillator();
+        const env = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        env.gain.setValueAtTime(0, startAt);
+        env.gain.linearRampToValueAtTime(0.35, startAt + 0.04);
+        env.gain.linearRampToValueAtTime(0.25, startAt + dur * 0.4);
+        env.gain.linearRampToValueAtTime(0, startAt + dur - 0.03);
+        osc.connect(env);
+        env.connect(gainNode);
+        osc.start(startAt);
+        osc.stop(startAt + dur);
+        activeNodes.push({osc, env});
+      }
+      delayAcc += dur;
+    }
+    melodyTimeout = setTimeout(() => { 
+      if (loopPlaying) playMelody(); 
+    }, MELODY_TOTAL * 1000);
+  }
+
+  function playHarmony() {
+    if (!ctx || !loopPlaying) return;
+    const t = ctx.currentTime;
+    let offset = 0;
+    for (let i = 0; i < harmony.length; i++) {
+      const osc = ctx.createOscillator();
+      const env = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.value = harmony[i][0];
+      const startAt = t + offset;
+      env.gain.setValueAtTime(0, startAt);
+      env.gain.linearRampToValueAtTime(0.12, startAt + 0.1);
+      env.gain.linearRampToValueAtTime(0.08, startAt + harmony[i][1] - 0.1);
+      env.gain.linearRampToValueAtTime(0, startAt + harmony[i][1]);
+      osc.connect(env);
+      env.connect(gainNode);
+      osc.start(startAt);
+      osc.stop(startAt + harmony[i][1]);
+      activeNodes.push({osc, env});
+      offset += harmony[i][1];
+    }
+    harmonyTimeout = setTimeout(() => { 
+      if (loopPlaying) playHarmony(); 
+    }, HARMONY_TOTAL * 1000);
+  }
+
+  function startMusic() {
+    initAudio();
+    loopPlaying = true;
+    activeNodes = [];
+    playMelody();
+    playHarmony();
+    startProgress();
+  }
+
+  function stopMusic() {
+    loopPlaying = false;
+    if (melodyTimeout) {
+      clearTimeout(melodyTimeout);
+      melodyTimeout = null;
+    }
+    if (harmonyTimeout) {
+      clearTimeout(harmonyTimeout);
+      harmonyTimeout = null;
+    }
+    activeNodes.forEach(node => {
+      try {
+        node.osc.stop();
+        node.osc.disconnect();
+        node.env.disconnect();
+      } catch(e) {}
+    });
+    activeNodes = [];
+    stopProgress();
+  }
+
+  function startProgress() {
+    progStart = Date.now();
+    clearInterval(progInterval);
+    progInterval = setInterval(() => {
+      const elapsed = (Date.now() - progStart) % (MELODY_TOTAL * 1000);
+      document.getElementById('progFill').style.width = (elapsed / (MELODY_TOTAL * 1000) * 100) + '%';
+    }, 150);
+  }
+
+  function stopProgress() {
+    clearInterval(progInterval);
+    document.getElementById('progFill').style.width = '0%';
+  }
+
+  function togglePlay() {
+    if (playing) {
+      playing = false;
+      stopMusic();
+      document.getElementById('playIco').innerHTML = '<path d="M8 5v14l11-7z"/>';
+    } else {
+      playing = true;
+      startMusic();
+      document.getElementById('playIco').innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+      spawnNotes();
+    }
+  }
+
+  function setVol(v) {
+    if (gainNode) gainNode.gain.value = parseFloat(v) * 1.6;
+  }
+
+  function openInv() {
+    const cover = document.getElementById('cover');
+    const inv = document.getElementById('inv');
+    cover.style.opacity = '0';
+    cover.style.transition = 'opacity 0.5s, transform 0.6s cubic-bezier(0.34, 1.2, 0.64, 1)';
+    cover.style.transform = 'scale(0.92)';
+    setTimeout(() => {
+      cover.style.display = 'none';
+      inv.style.display = 'block';
+      spawnNotes();
+      setTimeout(() => {
+        playing = true;
+        startMusic();
+        document.getElementById('playIco').innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+      }, 600);
+    }, 500);
+  }
+
+  function spawnNotes() {
+    const symbols = ['♩', '♪', '♫', '♬', '✦', '✧', '✨', '✿', '❀'];
+    for (let i = 0; i < 8; i++) {
+      setTimeout(() => {
+        const el = document.createElement('span');
+        el.className = 'note';
+        el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        el.style.left = (15 + Math.random() * 70) + '%';
+        el.style.top = (20 + Math.random() * 60) + '%';
+        const colors = ['#b8942a', '#1a2850', '#7a9ac8', '#c8a040', '#d4b68a'];
+        el.style.color = colors[Math.floor(Math.random() * colors.length)];
+        el.style.animationDuration = (3.0 + Math.random() * 2.0) + 's';
+        el.style.fontSize = (20 + Math.random() * 18) + 'px';
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 5000);
+      }, i * 160);
+    }
+  }
+
+  // Iniciar música automáticamente cuando se carga la invitación
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      playing = true;
+      spawnNotes();
+      startMusic();
+      document.getElementById('playIco').innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+    }, 800);
+  });
+</script>
+</body>
+</html>
