@@ -113,12 +113,13 @@ html, body {
 }
 .ev-sub {
   font-family: 'Cinzel', serif;
-  font-size: clamp(7px,1.8vw,10px);
-  letter-spacing: .28em;
+  font-weight: 600;
+  font-size: clamp(8px, 1.8vw, 11px);
+  letter-spacing: .22em;
   color: var(--navy-light);
   text-transform: uppercase;
   text-align: center;
-  line-height: 1.9;
+  line-height: 1.5;
 }
 .sub-div {
   display: flex; align-items: center; gap: 6px;
@@ -159,9 +160,11 @@ html, body {
 }
 .date-txt {
   font-family: 'Cinzel', serif;
-  font-size: clamp(9px,2.4vw,13px);
-  letter-spacing: .2em;
+  font-weight: 600;
+  font-size: clamp(9px, 2.4vw, 13px);
+  letter-spacing: .18em;
   color: var(--navy);
+  text-transform: uppercase;
 }
 .d-dot { width:4px; height:4px; border-radius:50%; background:var(--gold); }
 
@@ -236,10 +239,12 @@ html, body {
 }
 .cta-sup {
   font-family: 'Cinzel', serif;
-  font-size: clamp(6.5px,1.7vw,9px);
-  letter-spacing: .24em;
+  font-weight: 500;
+  font-size: clamp(7px, 1.8vw, 10px);
+  letter-spacing: .20em;
   color: var(--navy-light);
   text-transform: uppercase;
+  text-align: center;
 }
 .cta-row {
   display: flex; align-items: center; gap: 7px;
